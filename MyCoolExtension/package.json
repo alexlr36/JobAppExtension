@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "web-ext": "^0.0.1"
+  },
+  "scripts": {
+    "start:firefox": "web-ext run --start-url google.com --bc --reload --source-dir ./"
+  }
+}
