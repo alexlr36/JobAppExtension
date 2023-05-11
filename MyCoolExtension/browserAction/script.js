@@ -4,17 +4,34 @@ document.getElementById('myHeading').style.color = 'red'
  * Listen for clicks on the buttons, and send the appropriate message to
  * the content script in the page.
  */
+var counter = 0;
+var arr_values = ["no values"];
+var responseWeights = 0;
 function listenForClicks() {
     document.addEventListener("click", (e) => {
 
         if (e.target.tagName !== "BUTTON") {
             // Ignore when click is not on a button within <div id="popup-content">.
             console.log("in the click event listener. Attempting to filter and parse users");
+            console.log("name is:" + e.target.tagName + ", value" + e.target.value);
             return;
         } else {
-            console.log("In the non-button clicker button button tagName is: " + e.target.tagName);
+            if(e.target.value == 'yes'){
+                findItems();
+            }
+            console.log("In the non-button clicker button button tagName is: " + e.target.tagName + ", value:" + e.target.value, ", counter:" + counter);
         }
     });
+}
+/**
+ * Finds items in the list. Then parses them accordingly.
+ */
+function findItems(){
+    var unordered_list = document.getElementsByClassName("scaffold-layout__list-container")[0];
+    // var list_items = document.getElementsByClassName("jobs-search-results__list-item");
+    // for(var i = 0; i < list_items.length; i++){
+    //     console.log("i:", i, ", list_items[i]:", list_items[i]);
+    // }
 }
 
 /**

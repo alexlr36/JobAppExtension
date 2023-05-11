@@ -3,15 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <link href="style.css" rel="stylesheet" />
-  <!-- <link rel="stylesheet" href="https://127.0.0.1:58587/stylesheet?id=feBAgVvf1BFjNme5"> -->
+    <link rel="stylesheet" href="../bootstrap-5.2.3-dist/css/bootstrap.min.css">
+    <script src="../bootstrap-5.2.3-dist/js/bootstrap.bundle.min.js"></script>
 </head>
   <body>
-    <div id="content">
-      <h1 id="myHeading">Job application Extension</h1>
-      <button>Save jobs</button>
+    <div id="content" class="none">
+      <div class="container">
+      <div class="row">
+        <div class="col align-self-start p-2">
+          <p id="myHeading">Would you like to Run the script?</p>
+        </div>
+      </div>
+      <div class="row">
+        <button class="col p-2" value="yes">Yes</button>
+        <button class="col p-2" value="no">No</button>
+      </div>
     </div>
-    <div id="error-content" class="hidden">
-      <p>error executing on web page.</p><p>Try a different page.</p>
+      <!-- <div id="error-content" class="hidden">
+        <p>error executing on web page.</p><p>Try a different page.</p>
+      </div> -->
     </div>
     <script src="script.js"></script>
   </body>

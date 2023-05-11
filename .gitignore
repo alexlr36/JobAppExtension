@@ -21,3 +21,4 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+MyCoolExtension/bootstrap-5.2.3-dist*
