@@ -10,6 +10,11 @@
         job_location_class: "job-card-container__metadata-item"
         //job_image_src_class: "evi-image"
     };
+    const savedObjects = [
+        { name: 'Object 1', checked: false },
+        { name: 'Object 2', checked: false },
+        { name: 'Object 3', checked: false },
+    ];
 
     async function getJobInfo(){
         const jobs = [];
@@ -56,9 +61,67 @@
             // Log the jobs array to the console
             console.log(job);
           }, 5000); // Wait for 2 seconds for the description to load
-        });        
+        });
+        renderForm(jobs);
         return jobs;
     }
+
+    // Create a function to handle form submission
+    function handleSubmit(event) {
+        event.preventDefault();
+    
+        // Remove checked objects from the savedObjects array
+        for (let i = savedObjects.length - 1; i >= 0; i--) {
+        if (savedObjects[i].checked) {
+            savedObjects.splice(i, 1);
+        }
+        }
+    
+        // Reload the current tab to reflect the changes
+        browser.tabs.reload();
+    }
+
+    // Create a function to render the form
+    function renderForm(jobs) {
+        // Create a new tab
+        browser.tabs.create({ url: 'about:blank' }, tab => {
+        // Create a new form element
+        const form = document.createElement('form');
+        form.addEventListener('submit', handleSubmit);
+    
+        // Add a checkbox for each saved object
+        savedObjects.forEach(object => {
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = object.checked;
+    
+            const label = document.createElement('label');
+            label.textContent = object.name;
+    
+            const wrapper = document.createElement('div');
+            wrapper.appendChild(checkbox);
+            wrapper.appendChild(label);
+            form.appendChild(wrapper);
+    
+            // Update the checked property of the saved object when the checkbox is changed
+            checkbox.addEventListener('change', () => {
+            object.checked = checkbox.checked;
+            });
+        });
+  
+      // Add a submit button
+      const submitButton = document.createElement('button');
+      submitButton.type = 'submit';
+      submitButton.textContent = 'Remove Checked Items';
+      form.appendChild(submitButton);
+  
+      // Inject the form into the new tab
+      browser.tabs.executeScript(tab.id, {
+        code: `document.body.appendChild(${JSON.stringify(form.outerHTML)})`
+      });
+    });
+  }
+
     try {
         // Save jobs in an arrayList(for now)
         var jobs = getJobInfo();
