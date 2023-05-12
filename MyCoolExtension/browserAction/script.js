@@ -9,17 +9,20 @@ var arr_values = ["no values"];
 var responseWeights = 0;
 function listenForClicks() {
     document.addEventListener("click", (e) => {
-
-        if (e.target.tagName !== "BUTTON") {
-            // Ignore when click is not on a button within <div id="popup-content">.
-            console.log("in the click event listener. Attempting to filter and parse users");
-            console.log("name is:" + e.target.tagName + ", value" + e.target.value);
-            return;
-        } else {
-            if(e.target.value == 'yes'){
-                findItems();
+        try {
+            if (e.target.tagName !== "BUTTON") {
+                // Ignore when click is not on a button within <div id="popup-content">.
+                console.log("in the click event listener. Attempting to filter and parse users");
+                console.log("name is:" + e.target.tagName + ", value" + e.target.value);
+                return;
+            } else {
+                if(e.target.value == 'yes'){
+                    findItems();
+                }
+                console.log("In the non-button clicker button button tagName is: " + e.target.tagName + ", value:" + e.target.value, ", counter:" + counter);
             }
-            console.log("In the non-button clicker button button tagName is: " + e.target.tagName + ", value:" + e.target.value, ", counter:" + counter);
+        } catch (e){
+            console.log("Error in event listener:", e);
         }
     });
 }
