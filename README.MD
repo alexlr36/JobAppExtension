@@ -1,4 +1,4 @@
-pt1.
+pt1(done)
 When on linkedIn and on the jobs page. 
 get to 20 applications, save them locally, with descriptions and links
 (keep these saved to write follow up letters for each of them)
