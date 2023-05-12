@@ -14,3 +14,8 @@ i/user then parses them and keeps or removes some.
 pt2.
 (fun/harder part)
 Extension then goes to these sites one by one and attempts to apply to each
+
+Extras:
+
+- Attach cover letter. If CV is generic, make extension replace [company name] with current company applying for.
+- Run 1-2 times a day. This will make it so it is now completley automated as well as runs so little as to not get flagged from lknin
