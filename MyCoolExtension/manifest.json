@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.linkedin.com/*"
+        "*://*/*"
       ],
       "js": [
         "content_script.js"
@@ -22,9 +22,9 @@
     }
   ],
   "permissions": [
+    "tabs",
     "activeTab",
-    "<all_urls>",
-    "tabs"
+    "<all_urls>"
   ],
   "browser_action": {
     "default_icon": {

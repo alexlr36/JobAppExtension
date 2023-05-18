@@ -5,6 +5,7 @@
 
 # testing
 MyCoolExtension/TestPage/
+MyCoolExtension/testing/*
 
 # production
 /build
@@ -22,3 +23,5 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 MyCoolExtension/bootstrap-5.2.3-dist*
+testing/testPage.html
+testing/testing.js

@@ -2,6 +2,7 @@
 (function() {
 
   const timer = ms => new Promise(res => setTimeout(res, ms));
+  const debugLvl = 1;
   // Current names for the classes connected to jobs in linkedin.
   // making these vars since linkedin will probably change them eventually.
   var job_image_src_class = "evi-image";
@@ -17,19 +18,16 @@
       { name: 'Object 3', checked: false },
   ];
 
-  function handelResponse(){
-    console.log(" ");
-  }
-  console.log("yoo");
   async function getJobInfo(){
       const jobs = [];
+      if(debugLvl > 0)
       console.log("in the doNothing.js");
       // Select the job listings container
       const jobListContainer = document.querySelector('.jobs-search-results-list');
       
       // Select all the job listings
       const jobListings = jobListContainer.querySelectorAll('li');
-      
+      if(debugLvl > 1)
       console.log(`getting each job listing, const jobListings: ${jobListings}`);
       // Loop through each job listing
       jobListings.forEach(jobListing => {
@@ -48,6 +46,7 @@
         const location = locationElement ? locationElement.textContent.trim() : '';
       
         // Wait for the description to load
+        
         setTimeout(() => {
           // Simulate a click event on the job listing to load the description
           jobListing.click();
@@ -65,22 +64,38 @@
           jobs.push(job);
       
           // Log the jobs array to the console
-          console.log(`job: ${job}`);
-          console.log(`sending message to the background script`);
+          if(debugLvl > 0){
+            console.log(`job: ${job}`);
+            console.log(`sending message to the background script`);
+          }
           browser.runtime.sendMessage({"currJob": job, "eol": "false"});
-        }, 5000); // Wait for 2 seconds for the description to load
+        }, 3000); // Wait for 5 seconds for the description to load
       });
-      
-      console.log(`outside of the job listings for loop`);
-      browser.runtime.sendMessage({"currJob": null, "eol": "true"});
-      // console.log(`sending message to the background script`);
-      // browser.runtime.sendMessage({"allJobs": jobs});
-      // browser.runtime.sendMessage({"url": "testing123"});
-      // browser.runtime.onMessage.addListener(handleMessage);
+      // setTimeout(() => {
+      //   console.log("first print in timeout");
+      //   setTimeout(() => {
+      //     console.log("second inner print in timeout");
+      //   }, 3000);
+      // }, 3000);
+      // console.log(`outside of the job listings for loop`);
+      // browser.runtime.sendMessage({"currJob": null, "eol": "true"});
       // renderForm(jobs);
-      // return jobs;
+      return jobs;
   }
 
+  async function getJobs(){
+    var listOfJobs = await getJobInfo(); //.then(browser.runtime.sendMessage({"currJob": null, "eol": "true"}));
+    if(debugLvl > 0)
+      console.log(`getJobsFunction is complete, attempting to send 'true' to bg.js `);
+    
+    var timeot = 2 * 3000
+    setTimeout(() => {
+      if(debugLvl > 0) console.log(`in the eol send message timeout `);
+      browser.runtime.sendMessage({"currJob": null, "eol": "true"});
+      // browser.tabs.create({url: "https://developer.mozilla.org/en-US/Add-ons/WebExtensions"});
+    }, timeot);
+      
+  }
   // Create a function to handle form submission
   function handleSubmit(event) {
       event.preventDefault();
@@ -139,8 +154,10 @@
 
   try {
       // Save jobs in an arrayList(for now)
+      if(debugLvl > 0)
       console.log("yooo");
-      var jobs = getJobInfo();
+      // var jobs = getJobInfo();
+      getJobs();
   } catch(e){
       console.log("Error:", e);
   }
