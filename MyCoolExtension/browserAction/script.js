@@ -126,7 +126,7 @@ async function createForm(){
 
     formLiteral += ` const submitButton = document.createElement('button'); submitButton.type = 'submit'; submitButton.textContent = 'Remove Checked Items';`;
     formLiteral += ` form.appendChild(submitButton);`;
-    formLiteral += ` document.body.appendChild(form);`
+    formLiteral += ` const bdy = document.createElement('body'); bdy.appendChild(form); document.body = bdy;`
     // Inject the form into the new tab
     // var outerHTMLform = JSON.stringify(form.outerHTML);
     // var commnad = 'document.body = ' + bdy;
@@ -140,7 +140,7 @@ async function renderForm() {
     // console.log(`newForm:${newForm}`);
     // Create a new tab
     setTimeout(() => {
-        browser.tabs.create({ url: 'https://blank.org/' });
+        browser.tabs.create({ url: 'https://alexromero.dev/blank' });
     }, 1000);
     setTimeout(() => {
             console.log(`newForm:${newForm}`);
