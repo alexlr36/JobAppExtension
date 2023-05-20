@@ -94,7 +94,8 @@ async function createFormFunc(){
         headerWrapper.appendChild(labelCompany);
         headerWrapper.appendChild(labelLocation);
         descWrapper.appendChild(labelDescription);
-        
+
+        // Add a show button
         const showButton = document.createElement('button');
         showButton.type = 'button';
         showButton.className = "col-3";
@@ -106,11 +107,7 @@ async function createFormFunc(){
         wrapper.appendChild(descWrapper);
         //event listener
         wrapper.addEventListener('button', handleShowDesc(i));
-        // Add a show button
-
-
         form.appendChild(wrapper);
-
         // Update the checked property of the saved object when the checkbox is changed
         checkbox.addEventListener('change', () => {
             object.checked = checkbox.checked;
@@ -192,8 +189,6 @@ function handleReset(event) {
         }
     }
     createFormFunc(jobLst);
-    // Reload the current tab to reflect the changes
-    //browser.tabs.reload();
 }
 
 // Create a function to handle form submission
@@ -217,10 +212,6 @@ async function handleShowDesc(jobID) {
         //document.getElementById(jobID).className = newClassNames;
         // debugLvl > 0 ? console.log(`jobClassNames is:${job.getElementsByClassName('col bg-light hidden')[0].outerHTML}, job:${job.outerHTML}`) : "";
     }
-    // wrapper.getElementById("desc").className = newClassNames;
-    //createFormFunc(jobLst);
-    // Reload the current tab to reflect the changes
-    //browser.tabs.reload();
 }
 
 // Create a function to render the form
