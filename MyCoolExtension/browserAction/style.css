@@ -2,6 +2,10 @@ h3 {
   font-style: italic;
 }
 
+/* .container {
+  border: solid #8787b3;
+} */
+
 .hidden {
   display: none;
 }
