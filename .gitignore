@@ -24,4 +24,4 @@ yarn-error.log*
 .env.production.local
 MyCoolExtension/bootstrap-5.2.3-dist*
 testing/testPage.html
-testing/testing.js
+testing/*
