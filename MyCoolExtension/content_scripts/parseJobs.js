@@ -69,7 +69,7 @@
             console.log(`sending message to the background script`);
           }
           browser.runtime.sendMessage({"currJob": job, "eol": "false"});
-        }, 3000); // Wait for 5 seconds for the description to load
+        }, 1000); // Wait for 1 second for the description to load
       });
       // setTimeout(() => {
       //   console.log("first print in timeout");
@@ -84,11 +84,11 @@
   }
 
   async function getJobs(){
-    var listOfJobs = await getJobInfo(); //.then(browser.runtime.sendMessage({"currJob": null, "eol": "true"}));
+    await getJobInfo(); //.then(browser.runtime.sendMessage({"currJob": null, "eol": "true"}));
     if(debugLvl > 0)
       console.log(`getJobsFunction is complete, attempting to send 'true' to bg.js `);
     
-    var timeot = 2 * 3000
+    var timeot = 2 * 1000
     setTimeout(() => {
       if(debugLvl > 0) console.log(`in the eol send message timeout `);
       browser.runtime.sendMessage({"currJob": null, "eol": "true"});
@@ -96,61 +96,61 @@
     }, timeot);
       
   }
-  // Create a function to handle form submission
-  function handleSubmit(event) {
-      event.preventDefault();
+  // // Create a function to handle form submission
+  // function handleSubmit(event) {
+  //     event.preventDefault();
   
-      // Remove checked objects from the savedObjects array
-      for (let i = savedObjects.length - 1; i >= 0; i--) {
-        if (savedObjects[i].checked) {
-            savedObjects.splice(i, 1);
-        }
-      }
+  //     // Remove checked objects from the savedObjects array
+  //     for (let i = savedObjects.length - 1; i >= 0; i--) {
+  //       if (savedObjects[i].checked) {
+  //           savedObjects.splice(i, 1);
+  //       }
+  //     }
   
-      // Reload the current tab to reflect the changes
-      browser.tabs.reload();
-  }
+  //     // Reload the current tab to reflect the changes
+  //     browser.tabs.reload();
+  // }
 
-  // Create a function to render the form
-  function renderForm(jobs) {
-      // Create a new tab
-      browser.tabs.create({ url: 'about:blank' }, tab => {
-      // Create a new form element
-      const form = document.createElement('form');
-      form.addEventListener('submit', handleSubmit);
+//   // Create a function to render the form
+//   function renderForm(jobs) {
+//       // Create a new tab
+//       browser.tabs.create({ url: 'about:blank' }, tab => {
+//       // Create a new form element
+//       const form = document.createElement('form');
+//       form.addEventListener('submit', handleSubmit);
   
-      // Add a checkbox for each saved object
-      savedObjects.forEach(object => {
-          const checkbox = document.createElement('input');
-          checkbox.type = 'checkbox';
-          checkbox.checked = object.checked;
+//       // Add a checkbox for each saved object
+//       savedObjects.forEach(object => {
+//           const checkbox = document.createElement('input');
+//           checkbox.type = 'checkbox';
+//           checkbox.checked = object.checked;
   
-          const label = document.createElement('label');
-          label.textContent = object.name;
+//           const label = document.createElement('label');
+//           label.textContent = object.name;
   
-          const wrapper = document.createElement('div');
-          wrapper.appendChild(checkbox);
-          wrapper.appendChild(label);
-          form.appendChild(wrapper);
+//           const wrapper = document.createElement('div');
+//           wrapper.appendChild(checkbox);
+//           wrapper.appendChild(label);
+//           form.appendChild(wrapper);
   
-          // Update the checked property of the saved object when the checkbox is changed
-          checkbox.addEventListener('change', () => {
-          object.checked = checkbox.checked;
-          });
-      });
+//           // Update the checked property of the saved object when the checkbox is changed
+//           checkbox.addEventListener('change', () => {
+//           object.checked = checkbox.checked;
+//           });
+//       });
 
-    // Add a submit button
-    const submitButton = document.createElement('button');
-    submitButton.type = 'submit';
-    submitButton.textContent = 'Remove Checked Items';
-    form.appendChild(submitButton);
+//     // Add a submit button
+//     const submitButton = document.createElement('button');
+//     submitButton.type = 'submit';
+//     submitButton.textContent = 'Remove Checked Items';
+//     form.appendChild(submitButton);
 
-    // Inject the form into the new tab
-    browser.tabs.executeScript(tab.id, {
-      code: `document.body.appendChild(${JSON.stringify(form.outerHTML)})`
-    });
-  });
-}
+//     // Inject the form into the new tab
+//     browser.tabs.executeScript(tab.id, {
+//       code: `document.body.appendChild(${JSON.stringify(form.outerHTML)})`
+//     });
+//   });
+// }
 
   try {
       // Save jobs in an arrayList(for now)

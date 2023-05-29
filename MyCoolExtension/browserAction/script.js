@@ -181,16 +181,25 @@ function handleJobRemoval(event) {
 }
 
 // Create a function to handle form submission
+// for each job in list:
+// 1. Go to Job app site
+// 2. Apply to Job
+// 3. Close Tab and Open new tab
 function handleSubmit(event) {
     event.preventDefault();
 
-    // Remove checked objects from the savedObjects array
-    for (let i = jobLst.length - 1; i >= 0; i--) {
-        if (!jobLst[i].checked) {
-            jobLst.splice(i, 1);
-        }
+    // try to do just 1-2 jobs to start
+    for(let i = 0; i < jobLst.length - 1; i++){
+
     }
-    createFormFunc(jobLst);
+    
+    // // Remove checked objects from the savedObjects array
+    // for (let i = jobLst.length - 1; i >= 0; i--) {
+    //     if (!jobLst[i].checked) {
+    //         jobLst.splice(i, 1);
+    //     }
+    // }
+    // createFormFunc(jobLst);
 }
 
 // Create a function to handle form submission
