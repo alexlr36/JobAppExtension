@@ -8,12 +8,18 @@ When on linkedIn and on the jobs page.
 get to 20 applications, save them locally, with descriptions and links
 (keep these saved to write follow up letters for each of them)
 
---pt1.5
+--pt1.5(done -- styling is a bit strange however)
 i/user then parses them and keeps or removes some.
 
 --pt2.
 (fun/harder part)
 Extension then goes to these sites one by one and attempts to apply to each
+    -- pt 2.1
+        Go to site, based on which site it is, fill out its information
+        The following sites are generic enough that they can go ahead and be autofilled, and possibly submitted
+         - https://boards.greenhouse.io
+
+
 
 Extras:
 

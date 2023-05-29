@@ -32,6 +32,8 @@ document.addEventListener("click", (e) => {
         } else {
             if(e.target.value == 'yes'){
                 if (debugLvl > 1) console.log("attempting to execute script");
+                document.querySelector("#myHeading").remove();
+                document.querySelector("#loading").classList.remove("hidden");
                 browser.tabs.executeScript({file: "../content_scripts/doNothing.js"}).catch(reportExecuteScriptError);
             }
             else if (e.target.value.includes("showDesc")){
@@ -49,8 +51,8 @@ async function createFormFunc(){
     // Create a new form element
     const form = document.createElement('form');
     form.className = "container";
-    form.addEventListener('reset', handleSubmit);
-    form.addEventListener('submit', handleReset);
+    form.addEventListener('reset', handleJobRemoval);
+    form.addEventListener('submit', handleSubmit);
     // Add a checkbox for each saved object
     var i = 0;
     jobLst.forEach(object => {
@@ -60,7 +62,7 @@ async function createFormFunc(){
         const checkbox = document.createElement('input');
         checkbox.className = "col-3";
         checkbox.type = 'checkbox';
-        checkbox.checked = object.checked;
+        // checkbox.checked = object.checked;
         if (debugLvl > 1) console.log(`in the foreach loop function`);
         
         const labelTitle = document.createElement('label');
@@ -120,13 +122,13 @@ async function createFormFunc(){
     // Add a submit and remove elements button button
     const submitButton = document.createElement('button');
     submitButton.type = 'submit';
-    submitButton.textContent = 'Apply to checked items';
+    submitButton.textContent = 'Apply to selected jobs';
     const resetButton = document.createElement('button');
     resetButton.type = 'reset';
-    resetButton.textContent = 'remove Unchecked Items';
+    resetButton.textContent = 'Remove selected jobs';
     
-    form.appendChild(resetButton);
     form.appendChild(submitButton);
+    form.appendChild(resetButton);
 
     // Inject the form into the new tab
     // var outerHTMLform = JSON.stringify(form.outerHTML);
@@ -158,18 +160,18 @@ function handleMessage(message){
         if (debugLvl > 0) console.log(`in the simple print background function, message.currJob.title:${message.currJob.title}, message.currJob.company:${message.currJob.company}, message.currJob.location:${message.currJob.location}`);
         let currentJob = message.currJob;
         // instert checkbox value to the current job
-        currentJob.checked = true;
+        currentJob.checked = false;
         jobLst.push(currentJob);
     }
 }
 
 // Create a function to handle form submission
-function handleSubmit(event) {
+function handleJobRemoval(event) {
     event.preventDefault();
 
     // Remove checked objects from the savedObjects array
     for (let i = jobLst.length - 1; i >= 0; i--) {
-        if (!jobLst[i].checked) {
+        if (jobLst[i].checked) {
             jobLst.splice(i, 1);
         }
     }
@@ -179,7 +181,7 @@ function handleSubmit(event) {
 }
 
 // Create a function to handle form submission
-function handleReset(event) {
+function handleSubmit(event) {
     event.preventDefault();
 
     // Remove checked objects from the savedObjects array

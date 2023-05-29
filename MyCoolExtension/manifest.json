@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "MyCoolExtension",
-  "description": "DoesCoolThings",
+  "name": "Auto Job Applier",
+  "description": "Automates as much as possible from a job application form",
   "version": "0.0.1",
   "icons": {
     "64": "icons/icon.png"
