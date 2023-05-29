@@ -47,6 +47,29 @@ document.addEventListener("click", (e) => {
     }
 });
 
+async function askForJobFromTabs(tabs) {
+    for (const tab of tabs) {
+      browser.tabs
+        .sendMessage(tab.id, {reload: true})
+        .then((response) => {
+          if(response.jobs != undefined){
+            console.log(response.jobs);
+            jobLst = response.jobs;
+            createFormFunc();
+          }
+        })
+        .catch(reportExecuteScriptError);
+    }
+}
+
+async function loadJobs(){    
+    browser.tabs
+    .query({
+    currentWindow: true,
+    active: true,
+    }).then(askForJobFromTabs).catch(reportExecuteScriptError);
+}
+
 async function createFormFunc(){
     // Create a new form element
     const form = document.createElement('form');
@@ -180,26 +203,36 @@ function handleJobRemoval(event) {
     //browser.tabs.reload();
 }
 
+async function sendMessageToTabs(tabs) {
+    for (const tab of tabs) {
+      browser.tabs
+        .sendMessage(tab.id, { greeting: "Hi from background script" , jobs: jobLst, reload: false, jobID: 1})
+        .then((response) => {
+          console.log("Message from the content script:");
+          console.log(response.response);
+        })
+        .catch(reportExecuteScriptError);
+    }
+  }
+
 // Create a function to handle form submission
 // for each job in list:
 // 1. Go to Job app site
 // 2. Apply to Job
 // 3. Close Tab and Open new tab
-function handleSubmit(event) {
+async function handleSubmit(event) {
     event.preventDefault();
 
     // try to do just 1-2 jobs to start
-    for(let i = 0; i < jobLst.length - 1; i++){
+    // for(let i = 0; i < jobLst.length - 1; i++){
 
-    }
-    
-    // // Remove checked objects from the savedObjects array
-    // for (let i = jobLst.length - 1; i >= 0; i--) {
-    //     if (!jobLst[i].checked) {
-    //         jobLst.splice(i, 1);
-    //     }
     // }
-    // createFormFunc(jobLst);
+    // find job and click
+    browser.tabs
+    .query({
+    currentWindow: true,
+    active: true,
+    }).then(sendMessageToTabs).catch(reportExecuteScriptError);
 }
 
 // Create a function to handle form submission
@@ -243,7 +276,7 @@ async function renderForm() {
     // }, 500);
 }
 
-// document.addEventListener("DOMContentLoaded", listenForClicks);
+document.addEventListener("DOMContentLoaded", loadJobs);
 /**
  * When the popup loads, inject a addListener,
  * and add a click handler.

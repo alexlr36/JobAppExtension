@@ -60,3 +60,37 @@
 // } catch(e){
 //     console.log("Error:", e);
 // }
+var jobList  = [];
+
+function clickOnJobApp(jobID){
+    // Select the job listings container
+    const jobListContainer = document.querySelector('.jobs-search-results-list');
+    // Select all the job listings
+    // Every job has 4 'li' items on linkedin
+    const jobListings = jobListContainer.querySelectorAll('li');
+    // click on job from list
+    jobListings[jobID].click();
+
+}
+
+// This will probably be empty for awhile. Let other auto application
+// apps do this for now.
+function applyForJob(){
+
+}
+
+browser.runtime.onMessage.addListener((request) => {
+    console.log("Message from the background script:", request.jobs, ", request.jobsID:", request.jobID, ", request.reload:", request.reload, ", jobList:", jobList);
+    // add jobs to list for later
+    if(jobList == undefined) jobList = request.jobs;
+    if(request.jobs != undefined) jobList = request.jobs;
+    console.log("jobList:", jobList);
+    if(request.reload == true && jobList != undefined && jobList.length > 0){
+        console.log("in the reload function");
+        return Promise.resolve({ jobs: jobList });
+    }
+    clickOnJobApp(request.jobID * 4);
+    applyForJob();
+    console.log("sending promise.");
+    return Promise.resolve({ response: "Hi from content script", jobs: []});
+  });

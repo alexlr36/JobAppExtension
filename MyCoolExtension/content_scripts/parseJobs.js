@@ -21,7 +21,7 @@
   async function getJobInfo(){
       const jobs = [];
       if(debugLvl > 0)
-      console.log("in the doNothing.js");
+      console.log("in parseJobs.js");
       // Select the job listings container
       const jobListContainer = document.querySelector('.jobs-search-results-list');
       
