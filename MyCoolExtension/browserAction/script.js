@@ -7,7 +7,7 @@
 var counter = 0;
 var arr_values = ["no values"];
 var responseWeights = 0;
-const debugLvl = 2;
+const debugLvl = 1;
 let jobLst = [];
 // const timer = ms => new Promise(res => setTimeout(res, ms));
 // Current names for the classes connected to jobs in linkedin.
@@ -34,7 +34,7 @@ document.addEventListener("click", (e) => {
                 if (debugLvl > 1) console.log("attempting to execute script");
                 document.querySelector("#myHeading").remove();
                 document.querySelector("#loading").classList.remove("hidden");
-                browser.tabs.executeScript({file: "../content_scripts/doNothing.js"}).catch(reportExecuteScriptError);
+                browser.tabs.executeScript({file: "../content_scripts/parseJobs.js"}).catch(reportExecuteScriptError);
             }
             else if (e.target.value.includes("showDesc")){
                 let jobID = e.target.value.split(":")[1];
